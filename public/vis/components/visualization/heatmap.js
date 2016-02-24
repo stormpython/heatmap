@@ -16,6 +16,7 @@ function heatmap() {
   var colValue = function (d) { return d.col; };
   var metric = function (d) { return d.value; };
   var padding = 0;
+  // var filterTicksBy = 1;
   // var sort = { row: false, col: false };
   // var reverse = { row: false, col: false };
   var cellClass = 'cell';
@@ -27,10 +28,9 @@ function heatmap() {
   var fillOpacity = metric;
   var stroke = 'none';
   var strokeWidth = 0;
-  var filterTicksBy = 1;
   var gridLayout = layout();
-  var xAxis = axis();
-  var yAxis = axis();
+  var columnAxis = axis();
+  var rowAxis = axis();
   var cells = rect();
   var g = gGenerator();
 
@@ -73,13 +73,13 @@ function heatmap() {
         .fillOpacity(fillOpacity)
         .opacityScale(opacityScale.domain(colorDomain).range(opacityRange));
 
-      xAxis
+      columnAxis
         .scale(columnScale)
         .class('column')
         .orientation('bottom')
         .transform('translate(0,' + adjustedHeight + ')');
 
-      yAxis
+      rowAxis
         .scale(rowScale)
         .class('row');
 
@@ -102,8 +102,8 @@ function heatmap() {
         .call(g) // One container to rule them all!
         .select('g.container')
         .datum(gridLayout(metrics))
-        .call(xAxis)
-        .call(yAxis)
+        .call(columnAxis)
+        .call(rowAxis)
         .call(cells);
     });
   }
@@ -177,6 +177,19 @@ function heatmap() {
     colorRange = v;
     return chart;
   };
+
+  chart.opacityScale = function (v) {
+    if (!arguments.length) { return opacityScale; }
+    opacityScale = v;
+    return chart;
+  };
+
+  chart.opacityRange = function (v) {
+    if (!arguments.length) { return opacityRange; }
+    opacityRange = v;
+    return chart;
+  };
+
   chart.fill = function (v) {
     if (!arguments.length) { return fill; }
     fill = v;

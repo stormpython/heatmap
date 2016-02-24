@@ -5,11 +5,13 @@ var _ = require('lodash');
 function events() {
   var processor = function (e) { return e; };
   var listeners = {};
-  var svg;
+  var element;
 
   function control(selection) {
     selection.each(function () {
-      svg = d3.select(this);
+      if (!element) {
+        element = d3.select(this);
+      }
 
       d3.entries(listeners).forEach(function (d) {
         svg.on(d.key, function () {

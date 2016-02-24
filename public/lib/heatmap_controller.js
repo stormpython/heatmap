@@ -9,25 +9,35 @@ module.controller('HeatmapController', function ($scope) {
       return;
     }
 
-    var rowAggId = _.first(_.pluck($scope.vis.aggs.bySchemaName['row'], 'id'));
     var columnAggId = _.first(_.pluck($scope.vis.aggs.bySchemaName['column'], 'id'));
+    var rowAggId = _.first(_.pluck($scope.vis.aggs.bySchemaName['row'], 'id'));
     var metricsAgg = _.first($scope.vis.aggs.bySchemaName['metric']);
 
-    var rows = resp.aggregations[rowAggId].buckets;
-    var columns = resp.aggregations[columnAggId] ? resp.aggregations[columnAggId].buckets || [];
+    var columns = resp.aggregations[columnAggId].buckets;
 
-    var cells = rows.map(function (bucket) {
-      return columns.map(function (subBucket) {
-        var metricVal = subBucket || bucket;
+    var cells = columns.map(function (bucket) {
+      var key = bucket.key;
+      var rows = bucket[rowAggId] ? bucket[rowAggId].buckets : undefined;
 
-        return {
-          row: bucket.key,
-          column: subBucket ? subBucket.key : undefined,
-          value: metricsAgg.getValue(metricVal)
-        };
-      });
-    });
+      if (rows) {
+        return rows.map(function (subBucket) {
+          return {
+            col: key,
+            row: subBucket.key,
+            value: metricsAgg.getValue(subBucket)
+          };
+        });
+      }
 
-    $scope.data = [{ cells: cells}];
+      return {
+        col: key,
+        row: undefined,
+        value: metricsAgg.getValue(bucket)
+      }
+    }).reduce(function (a, b) {
+      return a.concat(b);
+    }, []);
+
+    $scope.data = [{ cells: cells }];
   });
 });

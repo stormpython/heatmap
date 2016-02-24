@@ -1,8 +1,8 @@
 var d3 = require('d3');
 var _ = require('lodash');
-var control = require('plugins/tagcloud/vis/components/control/events');
-var layoutGenerator = require('plugins/tagcloud/vis/components/layout/generator');
-var chartGenerator = require('plugins/tagcloud/vis/components/visualization/generator');
+var control = require('plugins/heatmap/vis/components/control/events');
+var layoutGenerator = require('plugins/heatmap/vis/components/layout/generator');
+var chartGenerator = require('plugins/heatmap/vis/components/visualization/generator');
 
 function vis() {
   var events = control();

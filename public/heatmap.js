@@ -9,11 +9,16 @@ function HeatmapProvider(Private) {
   return new TemplateVisType({
     name: 'heatmap',
     title: 'Heatmap',
-    description: '',
-    icon: '',
+    description: 'A heat map is a graphical representation of data where the individual ' +
+      'values contained in a matrix are represented as colors.',
+    icon: 'fa-th',
     template: require('plugins/heatmap/heatmap.html'),
     params: {
-      defaults: {},
+      defaults: {
+        margin: { top: 20, right: 200, bottom: 50, left: 100 },
+        stroke: 'white',
+        strokeWidth: 1
+      },
       editor: require('plugins/heatmap/heatmap_vis_params.html')
     },
     schemas: new Schemas([
@@ -22,7 +27,6 @@ function HeatmapProvider(Private) {
         name: 'metric',
         title: 'Cell',
         min: 1,
-        max: 1,
         aggFilter: ['avg', 'sum', 'count', 'min', 'max', 'median', 'cardinality'],
         defaults: [
           { schema: 'metric', type: 'count' }
@@ -30,19 +34,19 @@ function HeatmapProvider(Private) {
       },
       {
         group: 'buckets',
-        name: 'row',
+        name: 'column',
         icon: '',
-        title: 'Rows',
-        min: 1,
+        title: 'Columns',
+        min: 0,
         max: 1,
         aggFilter: '!geoHashGrid'
       },
       {
         group: 'buckets',
-        name: 'column',
+        name: 'row',
         icon: '',
-        title: 'Columns',
-        min: 1,
+        title: 'Rows',
+        min: 0,
         max: 1,
         aggFilter: '!geoHashGrid'
       }

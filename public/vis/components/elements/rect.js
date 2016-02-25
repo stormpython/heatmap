@@ -17,15 +17,15 @@ function rect() {
 
   function element(selection) {
     selection.each(function (data) {
-      var cells = d3.select(this).selectAll('rect')
+      var cells = d3.select(this).selectAll('rect.' + cssClass)
         .data(data);
 
       cells.exit().remove();
 
-      cells.enter().append('rect');
+      cells.enter().append('rect')
+        .attr('class', cssClass);
 
       cells
-        .attr('class', cssClass)
         .attr('x', x)
         .attr('y', y)
         .attr('rx', rx)

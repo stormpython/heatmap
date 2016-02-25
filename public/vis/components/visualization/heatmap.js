@@ -1,11 +1,12 @@
 var d3 = require('d3');
 var _ = require('lodash');
+var axis = require('plugins/heatmap/vis/components/axis/axis');
+var colorbrewer = require('plugins/heatmap/vis/components/colorbrewer/colorbrewer');
 var gGenerator = require('plugins/heatmap/vis/components/elements/g');
 var layout = require('plugins/heatmap/vis/components/visualization/heatmap_layout');
-var axis = require('plugins/heatmap/vis/components/axis/axis');
+var legendGenerator = require('plugins/heatmap/vis/components/legend/legend');
 var rect = require('plugins/heatmap/vis/components/elements/rect');
 var valuator = require('plugins/heatmap/vis/components/utils/valuator');
-var colorbrewer = require('plugins/heatmap/vis/components/colorbrewer/colorbrewer');
 
 function heatmap() {
   var accessor = function (d) { return d; };
@@ -20,8 +21,8 @@ function heatmap() {
   // var sort = { row: false, col: false };
   // var reverse = { row: false, col: false };
   var cellClass = 'cell';
-  var colorScale = d3.scale.quantize();
-  var colorRange = colorbrewer.YlGn[6];
+  var colorScale = d3.scale.quantile();
+  var colorRange = colorbrewer.Greens[6];
   var opacityScale = d3.scale.linear();
   var opacityRange = [1, 1];
   var fill = metric;
@@ -32,6 +33,7 @@ function heatmap() {
   var columnAxis = axis();
   var rowAxis = axis();
   var cells = rect();
+  var legend = legendGenerator();
   var g = gGenerator();
 
   // Creates a unique array of items
@@ -94,17 +96,31 @@ function heatmap() {
         .stroke(stroke)
         .strokeWidth(strokeWidth);
 
+      legend
+        .transform(function () {
+          var x = adjustedWidth + (margin.right / 3);
+          var y = adjustedHeight - Math.floor(adjustedHeight * (2 / 3));
+          return 'translate(' + x + ',' + y + ')';
+        })
+        .scale(colorScale);
+
       g.cssClass('container')
         .transform('translate(' + margin.left + ',' + margin.top + ')');
 
-      d3.select(this)
+      var container = d3.select(this)
         .datum([{}])
         .call(g) // One container to rule them all!
-        .select('g.container')
+        .select('g.container');
+
+      container
         .datum(gridLayout(metrics))
         .call(columnAxis)
         .call(rowAxis)
         .call(cells);
+
+      container
+        .datum([0].concat(colorScale.quantiles()))
+        .call(legend);
     });
   }
 

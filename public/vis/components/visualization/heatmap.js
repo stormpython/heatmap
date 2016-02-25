@@ -22,7 +22,7 @@ function heatmap() {
   // var reverse = { row: false, col: false };
   var cellClass = 'cell';
   var colorScale = d3.scale.quantile();
-  var colorRange = colorbrewer.Greens[6];
+  var colorRange = colorbrewer.Blues[6];
   var opacityScale = d3.scale.linear();
   var opacityRange = [1, 1];
   var fill = metric;

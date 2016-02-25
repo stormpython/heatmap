@@ -15,7 +15,7 @@ function HeatmapProvider(Private) {
     template: require('plugins/heatmap/heatmap.html'),
     params: {
       defaults: {
-        margin: { top: 20, right: 200, bottom: 50, left: 200 },
+        margin: { top: 20, right: 200, bottom: 50, left: 100 },
         stroke: 'white',
         strokeWidth: 1,
         padding: 0
@@ -36,7 +36,7 @@ function HeatmapProvider(Private) {
       {
         group: 'buckets',
         name: 'column',
-        icon: '',
+        icon: 'fa fa-ellipsis-v',
         title: 'Columns',
         min: 0,
         max: 1,
@@ -45,7 +45,7 @@ function HeatmapProvider(Private) {
       {
         group: 'buckets',
         name: 'row',
-        icon: '',
+        icon: 'fa fa-ellipsis-h',
         title: 'Rows',
         min: 0,
         max: 1,

@@ -8,7 +8,7 @@ Kibana 4.3+
 
 ### Installation steps
 1. Download and unpack [Kibana](https://www.elastic.co/downloads/kibana).
-2. From the Kibana root directory, install plugin with the following command:
+2. From the Kibana root directory, install the plugin with the following command:
 
 ```
 $ bin/kibana plugin -i heatmap -u https://github.com/stormpython/heatmap/archive/master.zip

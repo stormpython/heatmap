@@ -20,17 +20,17 @@ Kibana 4.3+
 This plugin is in **alpha**. There are outstanding [issues](https://github.com/stormpython/heatmap/issues) that need to be resolved for this to be a fully functioning plugin. For a quick list, please see the [to do list](#to-do-list) below.
 
 ### To Do List
-- [ ] Axis label filtering
-- [ ] Axis label rotation
-- [ ] Axis title positioning
-- [ ] Legend labelling
-- [ ] Fix bug with Range and Filter aggregations
-- [ ] Add tooltip
-- [ ] Fix bug with Median metric aggregations
-- [ ] Fix scrollbar issue after re-sizing visualization
-- [ ] Add date formatting
-- [ ] Add metric (number) formatting
-- [ ] Add user options
+- [ ] [Axis label filtering](https://github.com/stormpython/heatmap/issues/1)
+- [ ] [Axis label rotation](https://github.com/stormpython/heatmap/issues/2)
+- [ ] [Fix Row Axis title positioning](https://github.com/stormpython/heatmap/issues/3)
+- [ ] [Legend labelling](https://github.com/stormpython/heatmap/issues/4)
+- [ ] [Fix bug with Range and Filter aggregations](https://github.com/stormpython/heatmap/issues/5)
+- [ ] [Add tooltip](https://github.com/stormpython/heatmap/issues/6)
+- [ ] [Fix bug with Median metric aggregations](https://github.com/stormpython/heatmap/issues/7)
+- [ ] [Fix scrollbar issue after re-sizing visualization](https://github.com/stormpython/heatmap/issues/8)
+- [ ] [Add date formatting](https://github.com/stormpython/heatmap/issues/9)
+- [ ] [Add metric (number) formatting](https://github.com/stormpython/heatmap/issues/10)
+- [ ] [Add user options](https://github.com/stormpython/heatmap/issues/11)
 
 ### Issues
 Please file issues [here](https://github.com/stormpython/heatmap/issues).

@@ -16,6 +16,8 @@ function heatmap() {
   var rowValue = function (d) { return d.row; };
   var colValue = function (d) { return d.col; };
   var metric = function (d) { return d.value; };
+  var columnAxisTitle = '';
+  var rowAxisTitle = '';
   var padding = 0;
   // var filterTicksBy = 1;
   // var sort = { row: false, col: false };
@@ -54,7 +56,7 @@ function heatmap() {
       var adjustedHeight = height - margin.top - margin.bottom;
       var colDomain = getDomain(metrics, colValue);
       var rowDomain = getDomain(metrics, rowValue);
-      var colorDomain = d3.extent(metrics, metric);
+      var colorDomain = [0, Math.max(d3.max(metrics, metric), 1)];
 
       var columnScale = d3.scale.ordinal()
         .domain(colDomain)
@@ -79,11 +81,24 @@ function heatmap() {
         .scale(columnScale)
         .class('column')
         .orientation('bottom')
-        .transform('translate(0,' + adjustedHeight + ')');
+        .transform('translate(0,' + adjustedHeight + ')')
+        .title({
+          x: adjustedWidth / 2,
+          y: margin.bottom * (2 / 3),
+          anchor: 'middle',
+          text: columnAxisTitle
+        });
 
       rowAxis
         .scale(rowScale)
-        .class('row');
+        .class('row')
+        .title({
+          transform: 'rotate(-90)',
+          x: -height / 2,
+          y: -margin.left * (8 / 9),
+          anchor: 'middle',
+          text: rowAxisTitle
+        });
 
       cells
         .class(cellClass)
@@ -98,7 +113,7 @@ function heatmap() {
 
       legend
         .transform(function () {
-          var x = adjustedWidth + (margin.right / 3);
+          var x = adjustedWidth + (margin.right / 9);
           var y = adjustedHeight - Math.floor(adjustedHeight * (2 / 3));
           return 'translate(' + x + ',' + y + ')';
         })
@@ -167,6 +182,18 @@ function heatmap() {
   chart.value = function (v) {
     if (!arguments.length) { return metric; }
     metric = valuator(v);
+    return chart;
+  };
+
+  chart.columnAxisTitle = function (v) {
+    if (!arguments.length) { return columnAxisTitle; }
+    columnAxisTitle = v;
+    return chart;
+  };
+
+  chart.rowAxisTitle = function (v) {
+    if (!arguments.length) { return rowAxisTitle; }
+    rowAxisTitle = v;
     return chart;
   };
 

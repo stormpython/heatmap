@@ -43,9 +43,14 @@ function axes() {
         g.call(rotation);
       }
 
-      var text = g.append('text');
+      var text = g.selectAll('text.title')
+        .data([data]);
 
-      text.attr('class', title.class || 'axis title')
+      text.exit().remove();
+      text.enter().append('text')
+        .attr('class', title.class || 'title');
+
+      text
         .attr('x', title.x || 6)
         .attr('y', title.y || 6)
         .attr('dx', title.dx || '')
@@ -83,13 +88,13 @@ function axes() {
 
   generator.ticks = function (v) {
     if (!arguments.length) return ticks;
-    ticks.number = typeof v.number !== 'undefined' ? _.number : ticks.number;
-    ticks.values = typeof v.values !== 'undefined' ? _.values : ticks.values;
-    ticks.size = typeof v.size !== 'undefined' ? _.size : ticks.size;
-    ticks.padding = typeof v.padding !== 'undefined' ? _.padding : ticks.padding;
-    ticks.format = typeof v.format !== 'undefined' ? _.format : ticks.format;
-    ticks.innerTickSize = typeof v.innerTickSize !== 'undefined' ? _.innerTickSize : ticks.innerTickSize;
-    ticks.outerTickSize = typeof v.outerTickSize !== 'undefined' ? _.outerTickSize : ticks.outerTickSize;
+    ticks.number = typeof v.number !== 'undefined' ? v.number : ticks.number;
+    ticks.values = typeof v.values !== 'undefined' ? v.values : ticks.values;
+    ticks.size = typeof v.size !== 'undefined' ? v.size : ticks.size;
+    ticks.padding = typeof v.padding !== 'undefined' ? v.padding : ticks.padding;
+    ticks.format = typeof v.format !== 'undefined' ? v.format : ticks.format;
+    ticks.innerTickSize = typeof v.innerTickSize !== 'undefined' ? v.innerTickSize : ticks.innerTickSize;
+    ticks.outerTickSize = typeof v.outerTickSize !== 'undefined' ? v.outerTickSize : ticks.outerTickSize;
     return generator;
   };
 
@@ -102,13 +107,13 @@ function axes() {
   generator.title = function (v) {
     if (!arguments.length) return title;
     title.class = typeof v.class !== 'undefined' ? _.class : title.class;
-    title.x = typeof v.x !== 'undefined' ? _.x : title.x;
-    title.y = typeof v.y !== 'undefined' ? _.y : title.y;
-    title.dx = typeof v.dx !== 'undefined' ? _.dx : title.dx;
-    title.dy = typeof v.dy !== 'undefined' ? _.dy : title.dy;
-    title.transform = typeof v.transform !== 'undefined' ? _.transform : title.transform;
-    title.anchor = typeof v.anchor !== 'undefined' ? _.anchor : title.anchor;
-    title.text = typeof v.text !== 'undefined' ? _.text : title.text;
+    title.x = typeof v.x !== 'undefined' ? v.x : title.x;
+    title.y = typeof v.y !== 'undefined' ? v.y : title.y;
+    title.dx = typeof v.dx !== 'undefined' ? v.dx : title.dx;
+    title.dy = typeof v.dy !== 'undefined' ? v.dy : title.dy;
+    title.transform = typeof v.transform !== 'undefined' ? v.transform : title.transform;
+    title.anchor = typeof v.anchor !== 'undefined' ? v.anchor : title.anchor;
+    title.text = typeof v.text !== 'undefined' ? v.text : title.text;
     return generator;
   };
 

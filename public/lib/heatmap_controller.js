@@ -9,14 +9,26 @@ module.controller('HeatmapController', function ($scope) {
       return;
     }
 
-    var columnAggId = _.first(_.pluck($scope.vis.aggs.bySchemaName['column'], 'id'));
-    var rowAggId = _.first(_.pluck($scope.vis.aggs.bySchemaName['row'], 'id'));
+    var columnAggId = _.first(_.pluck($scope.vis.aggs.bySchemaName['columns'], 'id'));
+    var rowAggId = _.first(_.pluck($scope.vis.aggs.bySchemaName['rows'], 'id'));
     var metricsAgg = _.first($scope.vis.aggs.bySchemaName['metric']);
 
     function aggregate(resp, columnAggId, rowAggId) {
       var columns = resp.aggregations[columnAggId];
       var rows = resp.aggregations[rowAggId];
-      var first = columns ? columns.buckets : rows.buckets;
+      var first;
+
+      if (columns) {
+        first = columns.buckets;
+      } else if (rows) {
+        first = rows.buckets;
+      } else {
+        return [{
+          col: '_all',
+          row: undefined,
+          value: metricsAgg.getValue(resp.aggregations)
+        }];
+      }
 
       return first.map(function (bucket) {
         var key = bucket.key;
@@ -46,14 +58,23 @@ module.controller('HeatmapController', function ($scope) {
       });
     }
 
+    function getLabel(agg, name) {
+      return agg.bySchemaName[name] ? agg.bySchemaName[name][0].makeLabel() : '';
+    }
+
     var cells = resp.aggregations ? aggregate(resp, columnAggId, rowAggId)
       .reduce(function (a, b) {
         return a.concat(b);
       }, []) : [{
         col: '_all',
         row: undefined,
-        value: resp.total
+        value: resp.hits.total
       }];
+
+    _.merge($scope.vis.params, {
+      rowAxisTitle: getLabel($scope.vis.aggs, 'rows'),
+      columnAxisTitle: getLabel($scope.vis.aggs, 'columns')
+    });
 
     $scope.data = [{ cells: cells }];
   });

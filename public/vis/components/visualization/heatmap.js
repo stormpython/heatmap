@@ -139,13 +139,13 @@ function heatmap() {
       g.cssClass('container')
         .transform('translate(' + margin.left + ',' + margin.top + ')');
 
-      // Draw Heatmap Chart
       container = d3.select(this)
         .datum([{}])
-        .call(g); // One container to rule them all!
+        .call(g) // One container to rule them all!
+        .select('g.container');
 
+      // Draw Heatmap Chart
       container
-        .select('g.container')
         .datum(gridLayout(metrics))
         .call(columnAxis)
         .call(rowAxis)

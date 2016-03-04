@@ -1,5 +1,4 @@
 var _ = require('lodash');
-
 var module = require('ui/modules').get('heatmap');
 
 module.controller('HeatmapController', function ($scope) {

@@ -87,7 +87,8 @@ function heatmap() {
           y: margin.bottom * (2 / 3),
           anchor: 'middle',
           text: columnAxisTitle
-        });
+        })
+        .rotateLabels(true);
 
       rowAxis
         .scale(rowScale)
@@ -98,6 +99,10 @@ function heatmap() {
           y: -margin.left * (8 / 9),
           anchor: 'middle',
           text: rowAxisTitle
+        })
+        .rotateLabels(true)
+        .rotateOptions({
+          transform: 'translate(-10,-8)rotate(-30)'
         });
 
       cells

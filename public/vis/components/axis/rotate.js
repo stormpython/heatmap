@@ -17,7 +17,9 @@ function rotate() {
 
       ticks.each(function () {
         var labelLength = this.getBBox()[measure];
-        if (labelLength >= maxTickLabelLength) { isRotated = true; }
+        if (labelLength >= maxTickLabelLength) {
+          isRotated = true;
+        }
       });
 
       // Rotate and truncate

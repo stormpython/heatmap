@@ -142,10 +142,10 @@ function heatmap() {
       // Draw Heatmap Chart
       container = d3.select(this)
         .datum([{}])
-        .call(g) // One container to rule them all!
-        .select('g.container');
+        .call(g); // One container to rule them all!
 
       container
+        .select('g.container')
         .datum(gridLayout(metrics))
         .call(columnAxis)
         .call(rowAxis)

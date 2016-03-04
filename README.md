@@ -20,7 +20,7 @@ This plugin is in **alpha**. There are outstanding [issues](https://github.com/s
 ### To Do List
 - [x] [Axis label filtering](https://github.com/stormpython/heatmap/issues/1)
 - [x] [Axis label rotation](https://github.com/stormpython/heatmap/issues/2)
-- [ ] [Fix Row Axis title positioning](https://github.com/stormpython/heatmap/issues/3)
+- [x] [Fix Row Axis title positioning](https://github.com/stormpython/heatmap/issues/3)
 - [ ] [Legend labelling](https://github.com/stormpython/heatmap/issues/4)
 - [ ] [Fix bug with Range and Filter aggregations](https://github.com/stormpython/heatmap/issues/5)
 - [ ] [Add tooltip](https://github.com/stormpython/heatmap/issues/6)

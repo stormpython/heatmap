@@ -13,11 +13,13 @@ function rotate() {
       var ticks = d3.select(this).selectAll('.tick text');
       var numOfTicks = ticks[0].length;
       var maxTickLabelLength = (axisLength / numOfTicks) - labelPadding;
-      var isRotated;
+      var isRotated = false;
 
       ticks.each(function () {
         var labelLength = this.getBBox()[measure];
-        if (labelLength >= maxTickLabelLength) { isRotated = true; }
+        if (labelLength >= maxTickLabelLength) {
+          isRotated = true;
+        }
       });
 
       // Rotate and truncate
@@ -34,6 +36,9 @@ function rotate() {
         ticks.each(function () {
           d3.select(this).call(truncate().maxCharLength(truncateLength));
         });
+      } else {
+        // Default transform
+        ticks.attr('transform', text.defaultTransform || 'translate(0,0)');
       }
     });
   }
@@ -66,6 +71,7 @@ function rotate() {
   component.text = function (_) {
     if (!arguments.length) return text;
     text.transform = typeof _.transform !== 'undefined' ? _.transform : text.transform;
+    text.defaultTransform = typeof _.defaultTransform !== 'undefined' ? _.defaultTransform : text.defaultTransform;
     text.x = typeof _.x !== 'undefined' ? _.x : text.x;
     text.y = typeof _.y !== 'undefined' ? _.y : text.y;
     text.dx = typeof _.dx !== 'undefined' ? _.dx : text.dx;

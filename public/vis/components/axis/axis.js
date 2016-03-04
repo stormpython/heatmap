@@ -6,6 +6,7 @@ function axes() {
   var scale = d3.scale.linear();
   var orientation = 'left';
   var rotateLabels = false;
+  var rotateOptions = {};
   var ticks = {};
   var title = {};
   var transform = 'translate(0,0)';
@@ -37,9 +38,21 @@ function axes() {
         .call(axis);
 
       if (rotateLabels) {
-        var axisLength = Math.abs(scale.range()[1] - scale.range()[0]);
+        var axisLength;
 
-        rotation.axisLength(axisLength);
+        if (_.isFunction(scale.rangeBand)) {
+          axisLength = Math.abs(_.last(scale.range()) + scale.rangeBand());
+        } else {
+          axisLength = Math.abs(scale.range()[1] - scale.range()[0]);
+        }
+
+        rotation
+          .axisLength(axisLength)
+          .measure(rotateOptions.measure || 'width')
+          .text({
+            transform: rotateOptions.transform || 'translate(0,0)rotate(-45)'
+          });
+
         g.call(rotation);
       }
 
@@ -101,6 +114,13 @@ function axes() {
   generator.rotateLabels = function (v) {
     if (!arguments.length) return rotateLabels;
     rotateLabels = v;
+    return generator;
+  };
+
+  generator.rotateOptions = function (v) {
+    if (!arguments.length) return rotateOptions;
+    rotateOptions.measure = typeof v.measure !== 'undefined' ? v.measure : rotateOptions.measure;
+    rotateOptions.transform = typeof v.transform !== 'undefined' ? v.transform : rotateOptions.transform;
     return generator;
   };
 

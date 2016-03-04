@@ -15,8 +15,8 @@ function HeatmapProvider(Private) {
     template: require('plugins/heatmap/heatmap.html'),
     params: {
       defaults: {
-        margin: { top: 20, right: 200, bottom: 50, left: 100 },
-        stroke: 'white',
+        margin: { top: 20, right: 200, bottom: 100, left: 100 },
+        stroke: '#eee',
         strokeWidth: 1,
         padding: 0
       },

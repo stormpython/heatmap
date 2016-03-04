@@ -16,8 +16,8 @@ function heatmap() {
   var rowValue = function (d) { return d.row; };
   var colValue = function (d) { return d.col; };
   var metric = function (d) { return d.value; };
-  var cAxis = { title: '', filterBy: 0 };
-  var rAxis = { title: '', filterBy: 0 };
+  var cAxis = { title: '', filterBy: 0, rotateLabels: true, rotationAngle: '-45' };
+  var rAxis = { title: '', filterBy: 0, rotateLabels: true, rotationAngle: '-30'};
   var padding = 0;
   // var sort = { row: false, col: false };
   // var reverse = { row: false, col: false };
@@ -56,14 +56,13 @@ function heatmap() {
       var colDomain = getDomain(metrics, colValue);
       var rowDomain = getDomain(metrics, rowValue);
       var colorDomain = [0, Math.max(d3.max(metrics, metric), 1)];
-
       var columnScale = d3.scale.ordinal()
         .domain(colDomain)
         .rangeBands([0, adjustedWidth], padding);
-
       var rowScale = d3.scale.ordinal()
         .domain(rowDomain)
         .rangeBands([0, adjustedHeight], padding);
+      var container;
 
       gridLayout
         .row(rowValue)
@@ -92,7 +91,10 @@ function heatmap() {
           anchor: 'middle',
           text: cAxis.title
         })
-        .rotateLabels(true);
+        .rotateLabels(cAxis.rotateLabels)
+        .rotateOptions({
+          transform: 'translate(0,0)rotate(' + cAxis.rotationAngle + ')'
+        });
 
       rowAxis
         .scale(rowScale)
@@ -109,9 +111,10 @@ function heatmap() {
           anchor: 'middle',
           text: rAxis.title
         })
-        .rotateLabels(true)
+        .rotateLabels(rAxis.rotateLabels)
         .rotateOptions({
-          transform: 'translate(-10,-8)rotate(-30)'
+          transform: 'translate(-10,-8)rotate(' + rAxis.rotationAngle + ')',
+          measure: 'height'
         });
 
       cells
@@ -136,7 +139,8 @@ function heatmap() {
       g.cssClass('container')
         .transform('translate(' + margin.left + ',' + margin.top + ')');
 
-      var container = d3.select(this)
+      // Draw Heatmap Chart
+      container = d3.select(this)
         .datum([{}])
         .call(g) // One container to rule them all!
         .select('g.container');
@@ -147,6 +151,7 @@ function heatmap() {
         .call(rowAxis)
         .call(cells);
 
+      // Legend
       container
         .datum([0].concat(colorScale.quantiles()))
         .call(legend);

@@ -16,10 +16,9 @@ function heatmap() {
   var rowValue = function (d) { return d.row; };
   var colValue = function (d) { return d.col; };
   var metric = function (d) { return d.value; };
-  var columnAxisTitle = '';
-  var rowAxisTitle = '';
+  var cAxis = { title: '', filterBy: 0 };
+  var rAxis = { title: '', filterBy: 0 };
   var padding = 0;
-  // var filterTicksBy = 1;
   // var sort = { row: false, col: false };
   // var reverse = { row: false, col: false };
   var cellClass = 'cell';
@@ -82,22 +81,32 @@ function heatmap() {
         .class('column')
         .orientation('bottom')
         .transform('translate(0,' + adjustedHeight + ')')
+        .ticks({
+          values: columnScale.domain().filter(function (d, i) {
+            return !(i % cAxis.filterBy);
+          })
+        })
         .title({
           x: adjustedWidth / 2,
           y: margin.bottom * (2 / 3),
           anchor: 'middle',
-          text: columnAxisTitle
+          text: cAxis.title
         });
 
       rowAxis
         .scale(rowScale)
         .class('row')
+        .ticks({
+          values: rowScale.domain().filter(function (d, i) {
+            return !(i % rAxis.filterBy);
+          })
+        })
         .title({
           transform: 'rotate(-90)',
           x: -height / 2,
           y: -margin.left * (8 / 9),
           anchor: 'middle',
-          text: rowAxisTitle
+          text: rAxis.title
         });
 
       cells
@@ -185,15 +194,17 @@ function heatmap() {
     return chart;
   };
 
-  chart.columnAxisTitle = function (v) {
-    if (!arguments.length) { return columnAxisTitle; }
-    columnAxisTitle = v;
+  chart.columnAxis = function (v) {
+    if (!arguments.length) { return cAxis; }
+    cAxis.title = typeof v.title !== 'undefined' ? v.title : cAxis.title;
+    cAxis.filterBy = typeof v.filterBy !== 'undefined' ? v.filterBy : cAxis.filterBy;
     return chart;
   };
 
-  chart.rowAxisTitle = function (v) {
-    if (!arguments.length) { return rowAxisTitle; }
-    rowAxisTitle = v;
+  chart.rowAxis = function (v) {
+    if (!arguments.length) { return rAxis; }
+    rAxis.title = typeof v.title !== 'undefined' ? v.title : rAxis.title;
+    rAxis.filterBy = typeof v.filterBy !== 'undefined' ? v.filterBy : rAxis.filterBy;
     return chart;
   };
 

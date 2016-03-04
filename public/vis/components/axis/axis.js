@@ -69,7 +69,7 @@ function axes() {
         .attr('dx', title.dx || '')
         .attr('dy', title.dy || '.71em')
         .attr('transform', title.transform || 'translate(0,0)')
-        .style('title-anchor', title.anchor || 'end')
+        .style('text-anchor', title.anchor || 'end')
         .text(title.text || '');
     });
   }

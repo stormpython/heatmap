@@ -106,7 +106,7 @@ function heatmap() {
         })
         .title({
           transform: 'rotate(-90)',
-          x: -height / 2,
+          x: -adjustedHeight / 2,
           y: -margin.left * (8 / 9),
           anchor: 'middle',
           text: rAxis.title

@@ -18,8 +18,8 @@ $ bin/kibana plugin -i heatmap -u https://github.com/stormpython/heatmap/archive
 This plugin is in **alpha**. There are outstanding [issues](https://github.com/stormpython/heatmap/issues) that need to be resolved for this to be a fully functioning plugin. For a quick list, please see the [to do list](#to-do-list) below.
 
 ### To Do List
-- [ ] [Axis label filtering](https://github.com/stormpython/heatmap/issues/1)
-- [ ] [Axis label rotation](https://github.com/stormpython/heatmap/issues/2)
+- [x] [Axis label filtering](https://github.com/stormpython/heatmap/issues/1)
+- [x] [Axis label rotation](https://github.com/stormpython/heatmap/issues/2)
 - [ ] [Fix Row Axis title positioning](https://github.com/stormpython/heatmap/issues/3)
 - [ ] [Legend labelling](https://github.com/stormpython/heatmap/issues/4)
 - [ ] [Fix bug with Range and Filter aggregations](https://github.com/stormpython/heatmap/issues/5)

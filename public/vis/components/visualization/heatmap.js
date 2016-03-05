@@ -30,6 +30,7 @@ function heatmap() {
   var fillOpacity = metric;
   var stroke = 'none';
   var strokeWidth = 0;
+  var legendTitle = 'Legend';
   var gridLayout = layout();
   var columnAxis = axis();
   var rowAxis = axis();
@@ -134,7 +135,8 @@ function heatmap() {
           var y = adjustedHeight - Math.floor(adjustedHeight * (2 / 3));
           return 'translate(' + x + ',' + y + ')';
         })
-        .scale(colorScale);
+        .scale(colorScale)
+        .title(legendTitle);
 
       g.cssClass('container')
         .transform('translate(' + margin.left + ',' + margin.top + ')');
@@ -275,6 +277,12 @@ function heatmap() {
   chart.strokeWidth = function (v) {
     if (!arguments.length) { return strokeWidth; }
     strokeWidth = v;
+    return chart;
+  };
+
+  chart.legendTitle = function (v) {
+    if (!arguments.length) { return legendTitle; }
+    legendTitle = v;
     return chart;
   };
 

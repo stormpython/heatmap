@@ -14,9 +14,11 @@ function legend() {
   var strokeOpacity = 1;
   var textPadding = 5;
   var textAnchor = 'start';
+  var legTitle = 'Legend';
   var scale = d3.scale.quantize();
   var g = gGenerator();
   var block = gGenerator();
+  var legendTitle = gGenerator();
   var rect = rectGenerator();
 
   function generator(selection) {
@@ -28,12 +30,28 @@ function legend() {
         .call(g)
         .selectAll('g.' + cssClass)
         .each(function (data) {
+          var unit = d3.select(this);
+
           block.cssClass('block')
             .transform(function (d, i) {
               return 'translate(0,' + (rectHeight * i) + ')';
             });
 
-          d3.select(this)
+          legendTitle.cssClass('legend-title')
+            .transform('translate(0, -10)');
+
+          unit
+            .datum([{}])
+            .call(legendTitle);
+
+          var title = unit.selectAll('g.legend-title').selectAll('text')
+            .data([data]);
+
+          title.exit().remove();
+          title.enter().append('text');
+          title.text(legTitle);
+
+          unit
             .datum(data)
             .call(block)
             .selectAll('g.block')
@@ -148,6 +166,12 @@ function legend() {
   generator.textAnchor = function (v) {
     if (!arguments.length) { return textAnchor; }
     textAnchor = v;
+    return generator;
+  };
+
+  generator.title = function (v) {
+    if (!arguments.length) { return legTitle; }
+    legTitle = v;
     return generator;
   };
 

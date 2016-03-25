@@ -31,6 +31,7 @@ function legend() {
         .selectAll('g.' + cssClass)
         .each(function (data) {
           var unit = d3.select(this);
+          var upperLimit = data.pop();
 
           block.cssClass('block')
             .transform(function (d, i) {
@@ -89,7 +90,10 @@ function legend() {
                 .attr('dy', '.32em')
                 .style('text-anchor', textAnchor)
                 .text(function () {
-                  return (i === data.length - 1) ? Math.round(d) : Math.round(d) + ' - ' + Math.round(data[i + 1]);
+                  if (i === data.length - 1) {
+                    return Math.round(d) + ' - ' + Math.round(upperLimit);
+                  }
+                  return Math.round(d) + ' - ' + Math.round(data[i + 1]);
                 });
             });
         });

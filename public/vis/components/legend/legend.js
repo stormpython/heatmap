@@ -1,6 +1,7 @@
 var d3 = require('d3');
 var gGenerator = require('plugins/heatmap/vis/components/elements/g');
 var rectGenerator = require('plugins/heatmap/vis/components/elements/rect');
+var textGenerator = require('plugins/heatmap/vis/components/elements/text');
 
 function legend() {
   var cssClass = 'legend';
@@ -14,23 +15,38 @@ function legend() {
   var strokeOpacity = 1;
   var textPadding = 5;
   var textAnchor = 'start';
-  var legTitle = 'Legend';
+  var textFill = '#848e96';
+  var title = 'Legend';
   var scale = d3.scale.quantize();
   var g = gGenerator();
   var block = gGenerator();
-  var legendTitle = gGenerator();
+  var legendGBlock = gGenerator();
+  var legendTitle = textGenerator();
   var rect = rectGenerator();
+  var svgText = textGenerator();
 
   function generator(selection) {
     selection.each(function (datum) {
       g.cssClass(cssClass).transform(transform);
 
+      legendGBlock.cssClass('legend-title').transform(transform);
+      legendTitle.x(0).y(-10).dx('').dy('.32em').fill(textFill)
+        .anchor('start')
+        .text(title);
+
+      // Add Legend title
+      d3.select(this)
+        .datum([[datum]])
+        .call(legendGBlock)
+        .selectAll('g.legend-title')
+        .call(legendTitle);
+
+      // Adds g elements
       d3.select(this)
         .datum([datum])
         .call(g)
         .selectAll('g.' + cssClass)
         .each(function (data) {
-          var unit = d3.select(this);
           var upperLimit = data.pop();
 
           block.cssClass('block')
@@ -38,21 +54,8 @@ function legend() {
               return 'translate(0,' + (rectHeight * i) + ')';
             });
 
-          legendTitle.cssClass('legend-title')
-            .transform('translate(0, -10)');
-
-          unit
-            .datum([{}])
-            .call(legendTitle);
-
-          var title = unit.selectAll('g.legend-title').selectAll('text')
-            .data([data]);
-
-          title.exit().remove();
-          title.enter().append('text');
-          title.text(legTitle);
-
-          unit
+          // Adds rects and text
+          d3.select(this)
             .datum(data)
             .call(block)
             .selectAll('g.block')
@@ -65,36 +68,31 @@ function legend() {
                 .ry(0)
                 .width(rectWidth)
                 .height(rectHeight)
-                .fill(function (d, i) {
-                  return scale(d);
-                })
+                .fill(function (d, i) { return scale(d); })
                 .fillOpacity(fillOpacity)
                 .stroke(stroke)
                 .strokeWidth(strokeWidth)
                 .strokeOpacity(strokeOpacity);
 
-              var unit = d3.select(this)
-                .datum([d])
-                .call(rect);
-
-              var ex = unit.selectAll('text.legend-text')
-                .data([d]);
-
-              ex.exit().remove();
-              ex.enter().append('text').attr('class', 'legend-text');
-
-              ex
-                .attr('x', function () { return rectWidth + textPadding; })
-                .attr('y', function () { return rectHeight / 2; })
-                .attr('dx', '')
-                .attr('dy', '.32em')
-                .style('text-anchor', textAnchor)
+              svgText
+                .class('legend-text')
+                .x(function () { return rectWidth + textPadding; })
+                .y(function () { return rectHeight / 2; })
+                .dx('')
+                .dy('.32em')
+                .fill(textFill)
+                .anchor(textAnchor)
                 .text(function () {
                   if (i === data.length - 1) {
                     return Math.round(d) + ' - ' + Math.round(upperLimit);
                   }
                   return Math.round(d) + ' - ' + Math.round(data[i + 1]);
                 });
+
+              d3.select(this)
+                .datum([d])
+                .call(rect)
+                .call(svgText);
             });
         });
     });
@@ -173,9 +171,15 @@ function legend() {
     return generator;
   };
 
+  generator.textFill = function (v) {
+    if (!arguments.length) { return textFill; }
+    textFill = v;
+    return generator;
+  };
+
   generator.title = function (v) {
-    if (!arguments.length) { return legTitle; }
-    legTitle = v;
+    if (!arguments.length) { return title; }
+    title = v;
     return generator;
   };
 

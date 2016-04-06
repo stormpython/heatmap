@@ -1,4 +1,5 @@
 var d3 = require('d3');
+var numeral = require('numeral');
 var gGenerator = require('plugins/heatmap/vis/components/elements/g');
 var rectGenerator = require('plugins/heatmap/vis/components/elements/rect');
 var textGenerator = require('plugins/heatmap/vis/components/elements/text');
@@ -17,6 +18,7 @@ function legend() {
   var textAnchor = 'start';
   var textFill = '#848e96';
   var title = 'Legend';
+  var numberFormat = '0a';
   var scale = d3.scale.quantize();
   var g = gGenerator();
   var block = gGenerator();
@@ -24,6 +26,10 @@ function legend() {
   var legendTitle = textGenerator();
   var rect = rectGenerator();
   var svgText = textGenerator();
+
+  function formatNumber(num, format) {
+    return numeral(num).format(format);
+  }
 
   function generator(selection) {
     selection.each(function (datum) {
@@ -83,10 +89,12 @@ function legend() {
                 .fill(textFill)
                 .anchor(textAnchor)
                 .text(function () {
+                  var formattedNumber = formatNumber(Math.round(d), numberFormat);
+
                   if (i === data.length - 1) {
-                    return Math.round(d) + ' - ' + Math.round(upperLimit);
+                    return formattedNumber + ' - ' + formatNumber(Math.round(upperLimit), numberFormat);
                   }
-                  return Math.round(d) + ' - ' + Math.round(data[i + 1]);
+                  return formattedNumber + ' - ' + formatNumber(Math.round(data[i + 1]), numberFormat);
                 });
 
               d3.select(this)
@@ -180,6 +188,19 @@ function legend() {
   generator.title = function (v) {
     if (!arguments.length) { return title; }
     title = v;
+    return generator;
+  };
+
+  generator.numberFormat = function (v) {
+    var formats = {
+      number: '0a',
+      currency: '($0.00a)',
+      bytes: '0b',
+      percentage: '0%'
+    };
+
+    if (!arguments.length) { return numberFormat; }
+    numberFormat = formats[v] ? formats[v] : formats.number;
     return generator;
   };
 

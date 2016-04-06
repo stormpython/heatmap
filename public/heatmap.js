@@ -18,7 +18,8 @@ function HeatmapProvider(Private) {
         margin: { top: 20, right: 200, bottom: 100, left: 100 },
         stroke: '#ffffff',
         strokeWidth: 1,
-        padding: 0
+        padding: 0,
+        legendNumberFormat: 'number'
       },
       editor: require('plugins/heatmap/heatmap_vis_params.html')
     },

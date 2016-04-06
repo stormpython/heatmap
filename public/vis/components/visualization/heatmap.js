@@ -31,6 +31,7 @@ function heatmap() {
   var stroke = 'none';
   var strokeWidth = 0;
   var legendTitle = 'Legend';
+  var legendNumberFormat = 'number';
   var gridLayout = layout();
   var columnAxis = axis();
   var rowAxis = axis();
@@ -136,6 +137,7 @@ function heatmap() {
           return 'translate(' + x + ',' + y + ')';
         })
         .scale(colorScale)
+        .numberFormat(legendNumberFormat)
         .title(legendTitle);
 
       g.cssClass('container')
@@ -283,6 +285,12 @@ function heatmap() {
   chart.legendTitle = function (v) {
     if (!arguments.length) { return legendTitle; }
     legendTitle = v;
+    return chart;
+  };
+
+  chart.legendNumberFormat = function (v) {
+    if (!arguments.length) { return legendNumberFormat; }
+    legendNumberFormat = v;
     return chart;
   };
 

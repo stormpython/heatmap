@@ -12,6 +12,14 @@ module.controller('HeatmapController', function ($scope) {
     var rowAggId = _.first(_.pluck($scope.vis.aggs.bySchemaName['rows'], 'id'));
     var metricsAgg = _.first($scope.vis.aggs.bySchemaName['metric']);
 
+    var colFormatter = _.head($scope.vis.aggs.bySchemaName['columns']);
+    var rowFormatter = _.head($scope.vis.aggs.bySchemaName['rows']);
+
+    function formatter(value) { return value; }
+
+    colFormatter = colFormatter ? colFormatter.fieldFormatter() : formatter;
+    rowFormatter = rowFormatter ? rowFormatter.fieldFormatter() : formatter;
+
     function aggregate(resp, columnAggId, rowAggId) {
       var columns = resp.aggregations[columnAggId];
       var rows = resp.aggregations[rowAggId];
@@ -42,16 +50,16 @@ module.controller('HeatmapController', function ($scope) {
         if (second) {
           return second.map(function (subBucket) {
             return {
-              col: columns ? key : subBucket.key,
-              row: rows ? key : subBucket.key,
+              col: columns ? colFormatter(key) : colFormatter(subBucket.key),
+              row: rows ? rowFormatter(key) : rowFormatter(subBucket.key),
               value: metricsAgg.getValue(subBucket)
             };
           });
         }
 
         return {
-          col: columns ? key : undefined,
-          row: rows ? key : undefined,
+          col: columns ? colFormatter(key) : undefined,
+          row: rows ? rowFormatter(key) : undefined,
           value: metricsAgg.getValue(bucket)
         };
       });

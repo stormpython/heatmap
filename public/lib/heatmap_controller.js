@@ -72,7 +72,8 @@ module.controller('HeatmapController', function ($scope) {
 
     _.merge($scope.vis.params, {
       rowAxis: { title: getLabel($scope.vis.aggs, 'rows') },
-      columnAxis: { title: getLabel($scope.vis.aggs, 'columns') }
+      columnAxis: { title: getLabel($scope.vis.aggs, 'columns') },
+      legendTitle: getLabel($scope.vis.aggs, 'metric')
     });
 
     $scope.data = [{ cells: cells }];

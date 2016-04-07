@@ -22,7 +22,8 @@ module.controller('HeatmapController', function ($scope, Private) {
 
         table.columns.forEach(function (column, i) {
           var fieldFormatter = table.aggConfig(column).fieldFormatter();
-          var key = dataLabels[column.aggConfig.id];
+          // Median metric aggs use the parentId and not the id field
+          var key = column.aggConfig.parentId ? dataLabels[column.aggConfig.parentId] : dataLabels[column.aggConfig.id];
 
           if (key) {
             cell[key] = key !== 'value' ? fieldFormatter(row[i]) : row[i];

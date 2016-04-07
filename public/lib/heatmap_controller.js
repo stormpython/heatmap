@@ -12,7 +12,6 @@ module.controller('HeatmapController', function ($scope, Private) {
     var columnAggId = _.first(_.pluck($scope.vis.aggs.bySchemaName['columns'], 'id'));
     var rowAggId = _.first(_.pluck($scope.vis.aggs.bySchemaName['rows'], 'id'));
     var metricsAggId = _.first(_.pluck($scope.vis.aggs.bySchemaName['metric'], 'id'));
-    var metricsAgg = _.first($scope.vis.aggs.bySchemaName['metric']);
     var dataLabels = { [columnAggId]: 'col', [rowAggId]: 'row', [metricsAggId]: 'value' };
 
     var cells = [];

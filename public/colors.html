@@ -1,9 +1,9 @@
 <div>
   <div>
     <label>Color Range: </label>
-    <input class="color-range-input" type="range" ng-model="value" min="{{min}}" max="{{max}}">
+    <input type="range" ng-model="value" min="{{min}}" max="{{max}}">
   </div>
-  <svg>
+  <svg width="100%" height="25">
     <g>
       <rect
         ng-repeat="color in colors"

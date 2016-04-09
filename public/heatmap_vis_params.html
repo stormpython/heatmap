@@ -1,0 +1,11 @@
+<div class="form-group">
+  <div class="form-group">
+    <label>Color Brewer Scales: </label>
+    <select ng-model="vis.params.color">
+      <option ng-repeat="item in vis.type.params.colors" value={{item.name}}>
+        {{item.displayName}}
+      </option>
+    </select>
+  </div>
+  <color-map name="vis.params.color" value="vis.params.numberOfColors"></color-map>
+</div>

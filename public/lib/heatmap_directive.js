@@ -23,12 +23,15 @@ module.directive('heatmap', function () {
       };
 
       function render(data, opts, eventListeners) {
+        var chartSize;
+
         opts = opts || {};
         eventListeners = eventListeners || {};
+        chartSize = opts.width && opts.height ? [opts.width, opts.height] : getSize();
 
         vis.options(opts)
           .listeners(eventListeners)
-          .size(getSize());
+          .size(chartSize);
 
         if (data) {
           svg.datum(data).call(vis);

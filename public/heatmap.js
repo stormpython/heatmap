@@ -23,7 +23,9 @@ function HeatmapProvider(Private) {
         padding: 0,
         legendNumberFormat: 'number',
         color: colors[0].name,
-        numberOfColors: 6
+        numberOfColors: 6,
+        rowAxis: { filterBy: 0 },
+        columnAxis: { filterBy: 0 }
       },
       colors: colors,
       editor: require('plugins/heatmap/heatmap_vis_params.html')

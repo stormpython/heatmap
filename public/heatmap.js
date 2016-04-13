@@ -18,7 +18,7 @@ function HeatmapProvider(Private) {
     params: {
       defaults: {
         margin: { top: 20, right: 200, bottom: 100, left: 100 },
-        stroke: '#fff',
+        stroke: '#ffffff',
         strokeWidth: 1,
         padding: 0,
         legendNumberFormat: 'number',

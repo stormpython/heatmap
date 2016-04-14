@@ -28,6 +28,7 @@ function HeatmapProvider(Private) {
         columnAxis: { filterBy: 0 }
       },
       colors: colors,
+      legendNumberFormats: ['number', 'bytes', 'currency', 'percentage'],
       editor: require('plugins/heatmap/heatmap_vis_params.html')
     },
     schemas: new Schemas([

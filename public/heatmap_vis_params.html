@@ -69,7 +69,16 @@
       <input type="number" ng-model="vis.params.columnAxis.filterBy">
       <span> value.</span>
     </div>
+  </div>
 
+  <!-- Legend Number Format Options -->
+  <div class="form-group">
+    <h3>Legend Number Format</h3>
+    <select ng-model="vis.params.legendNumberFormat">
+      <option ng-repeat="item in vis.type.params.legendNumberFormats" value={{item}}>
+        {{item}}
+      </option>
+    </select>
   </div>
 
 </div>

@@ -159,7 +159,7 @@ function heatmap() {
 
       // Legend
       container
-        .datum([0].concat(colorScale.quantiles()).concat(colorScale.domain()[1]))
+        .datum([Math.min(0, colorScale.domain()[0])].concat(colorScale.quantiles()).concat(colorScale.domain()[1]))
         .call(legend);
     });
   }

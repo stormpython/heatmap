@@ -194,7 +194,7 @@ function legend() {
   generator.numberFormat = function (v) {
     var formats = {
       number: '0a',
-      currency: '($0[.]00a)',
+      currency: '($0a)',
       bytes: '0b',
       percentage: '0%'
     };

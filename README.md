@@ -1,7 +1,7 @@
 # Kibana Heatmap Plugin
 A Heatmap Plugin for Kibana 4
 
-![Kibana Heatmap](heatmap.png)
+![Kibana Heatmap](heatmap.gif)
 
 ### Requirements
 Kibana 4.3+

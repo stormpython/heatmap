@@ -28,7 +28,7 @@ This plugin is in **alpha**. There are outstanding [issues](https://github.com/s
 - [x] [Fix scrollbar issue after re-sizing visualization](https://github.com/stormpython/heatmap/issues/8)
 - [x] [Add date formatting](https://github.com/stormpython/heatmap/issues/9)
 - [x] [Add metric (number) formatting](https://github.com/stormpython/heatmap/issues/10)
-- [ ] [Add user options](https://github.com/stormpython/heatmap/issues/11)
+- [x] [Add user options](https://github.com/stormpython/heatmap/issues/11)
 
 ### Issues
 Please file issues [here](https://github.com/stormpython/heatmap/issues).

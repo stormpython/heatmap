@@ -27,7 +27,7 @@ module.directive('heatmap', function () {
 
         opts = opts || {};
         eventListeners = eventListeners || {};
-        chartSize = opts.width && opts.height ? [opts.width, opts.height] : getSize();
+        chartSize = getSize();
 
         vis.options(opts)
           .listeners(eventListeners)

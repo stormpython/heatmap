@@ -1,10 +1,12 @@
 require('plugins/heatmap/heatmap.less');
+require('plugins/heatmap/color_directive.js');
 require('plugins/heatmap/lib/heatmap_controller.js');
 require('plugins/heatmap/lib/heatmap_directive.js');
 
 function HeatmapProvider(Private) {
   var TemplateVisType = Private(require('ui/template_vis_type/TemplateVisType'));
   var Schemas = Private(require('ui/Vis/Schemas'));
+  var colors = require('plugins/heatmap/colors.js');
 
   return new TemplateVisType({
     name: 'heatmap',
@@ -19,8 +21,14 @@ function HeatmapProvider(Private) {
         stroke: '#ffffff',
         strokeWidth: 1,
         padding: 0,
-        legendNumberFormat: 'number'
+        legendNumberFormat: 'number',
+        color: colors[0].name,
+        numberOfColors: 6,
+        rowAxis: { filterBy: 0 },
+        columnAxis: { filterBy: 0 }
       },
+      colors: colors,
+      legendNumberFormats: ['number', 'bytes', 'currency', 'percentage'],
       editor: require('plugins/heatmap/heatmap_vis_params.html')
     },
     schemas: new Schemas([

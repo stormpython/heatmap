@@ -23,7 +23,8 @@ function heatmap() {
   // var reverse = { row: false, col: false };
   var cellClass = 'cell';
   var colorScale = d3.scale.quantile();
-  var colorRange = colorbrewer.Blues[6];
+  var colors = "PuBuGn";
+  var numberOfColors = 6;
   var opacityScale = d3.scale.linear();
   var opacityRange = [1, 1];
   var fill = metric;
@@ -57,6 +58,7 @@ function heatmap() {
       var adjustedHeight = height - margin.top - margin.bottom;
       var colDomain = getDomain(metrics, colValue);
       var rowDomain = getDomain(metrics, rowValue);
+      var colorRange = colorbrewer[colors][numberOfColors];
       var colorDomain = [0, Math.max(d3.max(metrics, metric), 1)];
       var columnScale = d3.scale.ordinal()
         .domain(colDomain)
@@ -157,7 +159,7 @@ function heatmap() {
 
       // Legend
       container
-        .datum([0].concat(colorScale.quantiles()).concat(colorScale.domain()[1]))
+        .datum([Math.min(0, colorScale.domain()[0])].concat(colorScale.quantiles()).concat(colorScale.domain()[1]))
         .call(legend);
     });
   }
@@ -240,9 +242,15 @@ function heatmap() {
     return chart;
   };
 
-  chart.colorRange = function (v) {
-    if (!arguments.length) { return colorRange; }
-    colorRange = v;
+  chart.color = function (v) {
+    if (!arguments.length) { return colors; }
+    colors = v;
+    return chart;
+  };
+
+  chart.numberOfColors = function (v) {
+    if (!arguments.length) { return numberOfColors; }
+    numberOfColors = v;
     return chart;
   };
 

@@ -23,7 +23,7 @@ function rect() {
 	  'position': 'absolute',
 	  'color': 'black',
 	  'font-size': '10px',
-	  'width': '100px',
+	  'width': 'auto',
 	  'height': 'auto',
 	  'padding': '5px',
 	  'border': '2px solid gray',

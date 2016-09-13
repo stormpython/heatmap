@@ -59,7 +59,7 @@ function heatmap() {
       var colDomain = getDomain(metrics, colValue);
       var rowDomain = getDomain(metrics, rowValue);
       var colorRange = colorbrewer[colors][numberOfColors];
-      var colorDomain = [0, Math.max(d3.max(metrics, metric), 1)];
+      var colorDomain = [Math.min(0, d3.min(metrics, metric)), Math.max(d3.max(metrics, metric), 1)];
       var columnScale = d3.scale.ordinal()
         .domain(colDomain)
         .rangeBands([0, adjustedWidth], padding);

@@ -47,7 +47,7 @@ module.controller('HeatmapController', function ($scope, Private) {
       $scope.data = null;
       return;
     }
-
+	
     // Add row, column, and metric titles as vis parameters
     _.merge($scope.vis.params, {
       rowAxis: { title: getLabel($scope.vis.aggs, 'rows') },
@@ -58,5 +58,51 @@ module.controller('HeatmapController', function ($scope, Private) {
     $scope.data = [{
       cells: processTableGroups(tabifyAggResponse($scope.vis, resp), $scope)
     }];
+	
+	  $scope.eventListeners = {
+      mouseover: [ mouseover ],
+      mouseout: [ mouseout ]
+    };	
+
+  	function mouseover(event) {
+      var target = d3.select(event.target);
+      var isHeatmapCell = (target.attr("class") === "cell");
+      var OFFSET = 50;
+
+      if (isHeatmapCell) {
+        // get data bound to heatmap cell
+        var d = _.first(target.data());
+        // Custom code for tooltip functionality goes here
+        $scope.$apply(function () {   
+          var params = $scope.vis.params; 
+          $scope.tooltipItems = Object.keys(d)
+            .filter(function (key) { return key !== "data"; })
+            .map(function (key) {
+
+              var title = d3.selectAll('text.title');
+              var value = d[key];
+              if(key.toUpperCase() === 'ROW')                            
+                key = params.columnAxis.title || 'ROW';
+              if(key.toUpperCase() === 'COL')
+                key = params.rowAxis.title || 'COL';
+              return {
+                key: key.toUpperCase(),
+                value: value
+              };
+            });
+          
+          $scope.top = d.data.row + parseInt(params.margin.top) + OFFSET;
+          $scope.left = d.data.col + parseInt(params.margin.left) + OFFSET;
+        });
+      }
+    };
+
+    function mouseout(event){
+      $scope.$apply(function () {
+        $scope.tooltipItems = [];
+        $scope.top = 0;
+        $scope.left = 0;
+      });
+    }
   });
 });

@@ -58,7 +58,6 @@ function axes() {
 
       var text = g.selectAll('text.title')
         .data([data]);
-
       text.exit().remove();
       text.enter().append('text')
         .attr('class', title.class || 'title');

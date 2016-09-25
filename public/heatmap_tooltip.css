@@ -1,10 +1,8 @@
 .heatmap-tooltip {
   position: absolute;
   width: auto;
-  height: auto;
-  padding: 5px;
-  z-index: 150;
-  background-color: #d3d3d3;
+  fadeout(@gray-darker, 7%);
+  gray-darker: #222222;
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   border-radius: 10px;

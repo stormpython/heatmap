@@ -15,6 +15,7 @@ function vis() {
   function generator(selection) {
     selection.each(function (data) {
       events.listeners(listeners);
+      
       layout.attr({
         type: opts.layout || 'grid',
         columns: opts.numOfColumns || 0,

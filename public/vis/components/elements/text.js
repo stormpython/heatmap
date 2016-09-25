@@ -15,6 +15,7 @@ function text() {
     selection.each(function (data) {
       var text = d3.select(this).selectAll('text.' + cssClass)
         .data(data);
+        
         text.exit().remove();
 
         text.enter().append('text')

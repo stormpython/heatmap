@@ -1,4 +1,3 @@
-var d3 = require("d3");
 var _ = require("lodash");
 var module = require('ui/modules').get('heatmap');
 

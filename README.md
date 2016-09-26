@@ -23,7 +23,7 @@ This plugin is in **alpha**. There are outstanding [issues](https://github.com/s
 - [x] [Fix Row Axis title positioning](https://github.com/stormpython/heatmap/issues/3)
 - [x] [Legend labelling](https://github.com/stormpython/heatmap/issues/4)
 - [x] [Fix bug with Range and Filter aggregations](https://github.com/stormpython/heatmap/issues/5)
-- [ ] [Add tooltip](https://github.com/stormpython/heatmap/issues/6)
+- [x] [Add tooltip](https://github.com/stormpython/heatmap/issues/6)
 - [x] [Fix bug with Median metric aggregations](https://github.com/stormpython/heatmap/issues/7)
 - [x] [Fix scrollbar issue after re-sizing visualization](https://github.com/stormpython/heatmap/issues/8)
 - [x] [Add date formatting](https://github.com/stormpython/heatmap/issues/9)

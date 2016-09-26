@@ -14,9 +14,8 @@ function events() {
       }
 
       d3.entries(listeners).forEach(function (d) {
-        svg.on(d.key, function () {
+        element.on(d.key, function () {
           d3.event.stopPropagation(); // => event.stopPropagation()
-
           _.forEach(d.value, function (listener) {
             listener.call(this, processor(d3.event));
           });

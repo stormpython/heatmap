@@ -1,0 +1,25 @@
+.heatmap-tooltip {
+  position: absolute;
+  width: auto;
+  fadeout(@gray-darker, 7%);
+  gray-darker: #222222;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+  -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+  -mox-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.heatmap-tooltip-list {
+  padding: 0;
+  list-style-type: none;
+}
+.heatmap-tooltip-list span{
+  font-size: 12px;
+}
+.heatmap-tooltip-list span.key{
+  font-weight: bold;
+}

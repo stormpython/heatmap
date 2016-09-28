@@ -1,15 +1,19 @@
+@import (reference) "~ui/styles/variables";
+
 .heatmap-tooltip {
   position: absolute;
   width: auto;
-  background-color: #222222;
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  border-radius: 10px;
+  padding: 5px !important;
+  background: fadeout(@gray-darker, 7%);
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
   -webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
-  -mox-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+  -moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
   box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
   pointer-events: none;
-  white-space: nowrap;
+  white-space: nowrap;  
+  color: #ecf0f1 !important;   
 }
 
 .heatmap-tooltip-list {

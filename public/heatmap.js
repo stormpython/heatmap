@@ -1,13 +1,14 @@
 require('plugins/heatmap/heatmap.less');
-require('plugins/heatmap/heatmap_tooltip.css');
+require('plugins/heatmap/heatmap_tooltip.less');
 require('plugins/heatmap/color_directive.js');
 require('plugins/heatmap/lib/heatmap_controller.js');
 require('plugins/heatmap/lib/heatmap_directive.js');
 require('plugins/heatmap/heatmap_tooltip_directive.js');
 
+
 function HeatmapProvider(Private) {
-  var TemplateVisType = Private(require('ui/template_vis_type/template_vis_type'));
-  var Schemas = Private(require('ui/vis/schemas'));
+  var TemplateVisType = Private(require('ui/template_vis_type/TemplateVisType'));
+  var Schemas = Private(require('ui/Vis/Schemas'));
   var colors = require('plugins/heatmap/colors.js');
 
   return new TemplateVisType({

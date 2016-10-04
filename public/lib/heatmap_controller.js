@@ -61,13 +61,17 @@ module.controller('HeatmapController', function ($scope, Private) {
 	
 	  $scope.eventListeners = {
       mouseover: [ mouseover ],
-      mouseout: [ mouseout ]
+      mouseout: [ mouseout ],
+      mousemove: [ mousemove ]
     };	
 
   	function mouseover(event) {
+      mousemove(event);
+    };
+
+    function mousemove(event){
       var target = d3.select(event.target);
       var isHeatmapCell = (target.attr("class") === "cell");
-      var OFFSET = 50;
 
       if (isHeatmapCell) {
         // get data bound to heatmap cell
@@ -75,26 +79,46 @@ module.controller('HeatmapController', function ($scope, Private) {
         // Custom code for tooltip functionality goes here
         $scope.$apply(function () {   
           var params = $scope.vis.params; 
+
           $scope.tooltipItems = Object.keys(d)
             .filter(function (key) { return key !== "data"; })
             .map(function (key) {
 
               var title = d3.selectAll('text.title');
               var value = d[key];
-              if (key.toUpperCase() === 'ROW') {                            
+              
+              if (key.toUpperCase() === 'ROW'){                          
                 key = params.columnAxis.title || 'ROW';
               }
-              if (key.toUpperCase() === 'COL') {
+
+              if (key.toUpperCase() === 'COL'){
                 key = params.rowAxis.title || 'COL';
               }
+
               return {
                 key: key.toUpperCase(),
                 value: value
               };
             });
-          
-          $scope.top = d.data.row + parseInt(params.margin.top) + OFFSET;
-          $scope.left = d.data.col + parseInt(params.margin.left) + OFFSET;
+
+            var svgParent = $(".parent"); 
+            var tooltip = $('.heatmap-tooltip');
+            var width = event.clientX + tooltip.width();
+            var height = event.clientY + tooltip.height();
+            var top = event.pageY - svgParent.offset().top;
+            var left = event.pageX - svgParent.offset().left;
+
+            if ($(window).width() < width){
+              $scope.left = left - tooltip.width() / 2;
+            }else{
+              $scope.left = left;
+            }
+
+            if ($(window).height() < height){
+              $scope.top = top - tooltip.height();
+            }else{
+              $scope.top = top;
+            } 
         });
       }
     };

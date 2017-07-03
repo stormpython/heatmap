@@ -82,10 +82,10 @@ module.controller('HeatmapController', function ($scope, Private) {
               var title = d3.selectAll('text.title');
               var value = d[key];
               if (key.toUpperCase() === 'ROW') {                            
-                key = params.columnAxis.title || 'ROW';
+                key = params.rowAxis.title || 'ROW';
               }
               if (key.toUpperCase() === 'COL') {
-                key = params.rowAxis.title || 'COL';
+                key = params.columnAxis.title || 'COL';
               }
               return {
                 key: key.toUpperCase(),
